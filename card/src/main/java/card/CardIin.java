@@ -1,59 +1,80 @@
 package card;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public enum CardIin {
-	VISA		(new int[] {4}, 					16),
-	AMEX		(new int[] {34, 37},				15),
-	JCB			(new int[] {3528, 3589},			16),
-	MAESTRO		(new int[] {50, 56, 57, 58, 59},	16),
-	CIRRUS		(new int[] {50, 56, 57, 58, 59},	16),
-	MASTER		(new int[] {51, 52, 53, 54, 55},	16),
-	DINERSCLUB	(new int[] {300, 301, 302, 303,
-							304, 305, 3095, 36,
-							38, 39},				16),
-	UNIONPAY	(range(new int[]
-						   {622126, 622925,
-							624,	626}),			16),
-	DISCOVER	(range(new int[]
-							{60112,		60114,
-							 601174,	601179,
-							 601186,	601199,
-							 60110,		60110,
-							 644,		649,
-							 60,		61,
-							 64,		65}),		16),
-	NONE(new int[] {0}, 0);
+
+	AMEX		(new String[] {"34",	 "37"},					15),
+	CIRRUS		(new String[] {"50", "56", "57", "58", "59"},	16),
+	DINERSCLUB	(new String[] {"300", "301", "302", "303",
+							   "304", "305",
+							   "36", "38", "39", "3095"},		16),
+	JCB			(new String[] {"3528", "3589"},					16),
+	MAESTRO		(new String[] {"50", "56", "57", "58", "59"},	16),
+	MASTER		(new String[] {"51", "52", "53", "54", "55"},	16),
+	VISA		(new String[] {"4"}, 							16),
+	UNIONPAY	(arrayListGlue(
+					makeStringList(622126, 622925),
+					makeStringList(624,		  626)),			16),
+	DISCOVER	(	arrayListGlue(
+					arrayListGlue(
+					arrayListGlue(
+					arrayListGlue(
+					arrayListGlue(
+					arrayListGlue(
+						makeStringList(60112,  60114),
+						makeStringList(601174, 601179)	),
+						makeStringList(601186, 601199)	),
+						makeStringList(60110,  60110)	),
+						makeStringList(644,		 649)	),
+						makeStringList(60,		  61)	),
+						makeStringList(64,		  65)	),		16),
+	NONE(new String[] {"0"}, 0);
 	
-	private int[] iinRange;
+	;
+	
+	private List<String> iinList;
 	private int length;
 	
-	CardIin(int[] iinRange, int length) {
-		this.iinRange = iinRange;
+	CardIin(ArrayList<String> iins, int length){
+		this.iinList = iins;
 		this.length = length;
 	}
 	
-	private static int[] range(int[] rangeWidth) {
-		int[] max = {0};
-		int l = rangeWidth.length>2 ? rangeWidth.length : 1; // i가 도달할 값 측정
-		
-		// 파라메터로 들어온 배열의 길이가 짝수일 때만 허용
-		if( (rangeWidth.length%2) == 0) {
-			for(int i=0; i<=rangeWidth[l-2]; i=i+2) {
+	CardIin(String[] iins, int length) {
+		this.iinList = new ArrayList<String>();
+		for(int i=0; i<iins.length; i++) {
+			iinList.add(iins[i]);
+		}
+		this.length		= length;
+	}
 
-				int[] temp = makeRange(rangeWidth[i], rangeWidth[i+1]);
-				System.arraycopy(temp, 0, max, 0, temp.length-1);
-				// 출발지, 출발지 인덱스, 목적지, 목적지 인덱스, 출발지 종료 인덱스
-			}
-		}
-		else {
-			//throw new Exception("int[] range(int[] rangeWidth) => rangeWidth is not even.");
-		}
-		return max;
-		
+	// IIN 얻기
+	public List<String> getIins() {
+		return this.iinList;
 	}
 	
-	public boolean haveIinCode(int codeNumber) {
+	public int getLength() {
+		return this.length;
+	}
+	
+	public boolean haveIinCode(String cardNumber) {
 		boolean result = false;
-		for(int i=0; i<this.iinRange.length; i++) {
-			if(this.iinRange[i] == codeNumber) {
+		
+		// isNull & isLengthNotZero ?
+		if(card.Utils.emptyCheck(cardNumber))
+			{ return result; } // === return false;
+		
+		// 순서대로 IIN 목록을 가져와 비교
+		for(int i=0; i<this.iinList.size(); i++) {
+			String iinFront = iinList.get(i);
+
+			if(	!(cardNumber.length() > iinFront.length()) ) {
+				return result; // === return false;
+			}
+			
+			if(iinFront.equals(cardNumber.substring(0, iinFront.length()))) {
 				result = true;
 				break;
 			}
@@ -61,11 +82,17 @@ public enum CardIin {
 		return result;
 	}
 	
-	private static int[] makeRange(int start, int end) {
-		int[] result = new int[end-start+1];
-		for(int i=0; start<=end; i++) {
-			result[i] = start+i;
+	private static ArrayList<String> makeStringList(int start, int end) {
+		ArrayList<String> result = new ArrayList<String>();
+		for(int i=start; i<=end; i++) {
+			result.add(Integer.toString(i));
 		}
 		return result;
+	}
+	
+	private static ArrayList<String> arrayListGlue(ArrayList<String> x, ArrayList<String> y) {
+		ArrayList<String> result = new ArrayList<String>();
+		x.addAll(y);
+		return x;
 	}
 }
