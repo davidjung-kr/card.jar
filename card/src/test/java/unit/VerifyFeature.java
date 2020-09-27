@@ -1,5 +1,6 @@
 package unit;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -10,7 +11,9 @@ public class VerifyFeature {
 
 	@Test
 	public void test() {
-		assertTrue(Verify.CardNumber());
+		assertTrue(Verify.modulus10("4916854683763796"));
+		assertTrue(Verify.modulus10("5111111111111118"));
+		assertFalse(Verify.modulus10("1234987645670987"));
 	}
 
 }

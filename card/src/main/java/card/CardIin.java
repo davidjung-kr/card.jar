@@ -16,20 +16,15 @@ public enum CardIin {
 	VISA		(new String[] {"4"}, 							16),
 	UNIONPAY	(arrayListGlue(
 					makeStringList(622126, 622925),
-					makeStringList(624,		  626)),			16),
-	DISCOVER	(	arrayListGlue(
-					arrayListGlue(
-					arrayListGlue(
-					arrayListGlue(
-					arrayListGlue(
-					arrayListGlue(
-						makeStringList(60112,  60114),
-						makeStringList(601174, 601179)	),
-						makeStringList(601186, 601199)	),
-						makeStringList(60110,  60110)	),
-						makeStringList(644,		 649)	),
-						makeStringList(60,		  61)	),
-						makeStringList(64,		  65)	),		16),
+					makeStringList(624,		  626)  ),			16),
+	DISCOVER	(arrayListGlue(
+					makeStringList(60112,   60114),
+					makeStringList(601174, 601179),
+					makeStringList(601186, 601199),
+					makeStringList(60110,   60110),
+					makeStringList(644,		  649),
+					makeStringList(60,		   61),
+					makeStringList(64,		   65)  ),			16),
 	NONE(new String[] {"0"}, 0);
 	
 	;
@@ -90,9 +85,9 @@ public enum CardIin {
 		return result;
 	}
 	
-	private static ArrayList<String> arrayListGlue(ArrayList<String> x, ArrayList<String> y) {
-		ArrayList<String> result = new ArrayList<String>();
-		x.addAll(y);
+	private static ArrayList<String> arrayListGlue(ArrayList<String> x, ArrayList<String>... y) {
+		for(ArrayList<String> t:y)
+			x.addAll(t);
 		return x;
 	}
 }
