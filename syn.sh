@@ -1,1 +1,1 @@
-cp ../eclipse-workspace/card/*.* ./card -f -r -p
+cp -r -f -p ../eclipse-workspace/card ./
