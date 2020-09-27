@@ -10,7 +10,7 @@ public class getCardnumberByArray {
 	@Test
 	public void testGetCardnumberByArray() {
 		Card fakeCard = new Card();
-		int[] cardNumber = fakeCard.getCardNumber();
+		String cardNumber = fakeCard.getCardNumber();
 		assertNotNull(cardNumber);
 	}
 }
