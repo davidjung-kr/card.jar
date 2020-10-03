@@ -12,12 +12,11 @@ public class CardObjInitialization {
 
 	@Test
 	public void testCardObjInitialization() {
-		Card randomCard = new Card();
-		assertNotNull(randomCard);
-		
-		Card visaCard = new Card(CardIin.VISA);
-		System.out.println(visaCard.getCardNumber());
-		assertTrue(visaCard.getCardNumber().length() == 16);
+		Card masterCard = new Card(CardIin.MASTER);
+		System.out.println(masterCard.getCardNumber());
+		String cardNumber = masterCard.getCardNumber();
+		assertEquals(16, cardNumber.length());
+		//assertEquals(true, Verify.modulus10(cardNumber));
 	}
 
 }

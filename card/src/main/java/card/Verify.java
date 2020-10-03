@@ -18,12 +18,9 @@ public class Verify {
 			int index = i+1;
 			int num = (index==1 || index%2==1)?	numbers[i]*2 : numbers[i];
 			num = num>9 ?	num/10+num%10 : num;
-			//int num = (i+1>1 && (i+1)%2==0)?	numbers[i]*2 : numbers[i];
-			System.out.println(num);
 			sum += num;
 		}
 		sum += numbers[cardNumberLength-1]; // 맨 마지막 Check Digit 더하기
-		System.out.println(sum);
 		return sum%10 == 0 ? true:false;
 	}
 }

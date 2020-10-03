@@ -1,7 +1,6 @@
 package unit;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -11,9 +10,9 @@ public class VerifyFeature {
 
 	@Test
 	public void test() {
-		assertTrue(Verify.modulus10("4916854683763796"));
-		assertTrue(Verify.modulus10("5111111111111118"));
-		assertFalse(Verify.modulus10("1234987645670987"));
+		assertEquals(true,	Verify.modulus10("4916854683763796"));
+		assertEquals(true,	Verify.modulus10("5111111111111118"));
+		assertEquals(false,	Verify.modulus10("1234987645670987"));
 	}
 
 }
