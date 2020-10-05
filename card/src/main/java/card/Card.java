@@ -3,13 +3,26 @@ package card;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class for generating any card number, a numeric string that conforms to the modular 10 formula.
+ *
+ * @author David Jung
+ * @see    https://github.com/davidjung-kr/card.jar
+ */
 public class Card {
-    private int[] cardNumber;
+	/** Card number. */
+    private int[] cardNumbers;
+    /** Card brand */
     private CardIin iin;
+    private int iinSize;
+    private int modulusSum;
     
     /**
-     * 생성자
-     * @return Return any card number of any brand.
+     * Constructor
+     * 	- Setting a IIN brand randomly and generate card numbers when initialize.
+     * 
+     * @param void
+     * @return void
      */
     public Card(){
     	CardIin[] iins = {
@@ -23,55 +36,129 @@ public class Card {
         	CardIin.UNIONPAY,
         	CardIin.VISA
     	};
-    	Random r = new Random();
-    	int selectedIndex = r.nextInt(iins.length-1);
-    	this.iin = iins[selectedIndex];
-    	this.cardNumber = new int[iin.getLength()];
+    	Random random 		= new Random();
+    	int selectedIndex 	= random.nextInt(iins.length-1);
+    	this.iin 			= iins[selectedIndex];
+    	this.cardNumbers 	= new int[iin.getLength()];
     	this.generateCardNumber();
     }
-  
+
     /**
-     * 생성자
-     * @return Return any card number of the brand received as parameter.
+     * Constructor
+     * 	- Generate card numbers when initialize.
+     * 
+     * @param CardIin iin
+     * @return void
      */
     public Card(CardIin iin){
-    	this.cardNumber = new int[iin.getLength()];
-    	this.iin = iin;
-
+    	final int CARDNUMBER_LENGTH = iin.getLength();
+    	// --- 필드 세팅 ---
+    	this.iin			= iin;
+    	this.cardNumbers	= new int[CARDNUMBER_LENGTH];	
+    	this.iinSize		= 0;
+        this.modulusSum 	= 0;
     	this.generateCardNumber();
     }
-    
+   
+    /**
+     * Get card number when initialize instance.
+     * 
+     * @param void
+     * @return String - Card numbers.
+     */
     public String getCardNumber() {
     	StringBuilder str = new StringBuilder();
-    	for(int e: this.cardNumber)
+    	for(int e: this.cardNumbers)
     		str.append(e);
     	return str.toString();
     }
-    
+
+    /**
+     * Call methods for generate card numbers.
+     * 
+     * @param void
+     * @return void
+     */
     private void generateCardNumber() {
-    	int cardNumberLength = this.iin.getLength();
-    	int[] cardNumber = new int[cardNumberLength];
-    	
+    	this.settingBrand		();
+    	this.settingNumber		();
+    	this.settingCheckDigit	();
+    }
+
+    /**
+     * Setting card brand(IIN)
+     * 
+     * @param void
+     * @return void
+     */
+    private void settingBrand() {
     	// IIN 앞자리 목록 가져오기
     	List<String> iins = iin.getIins();
     	
-    	// 카드의 IIN중 앞 자리 정하기
-    	Random r = new Random();
-    	int iinSelectedIndex = 0;
-    	if(iins.size()>=2)
-    		{ iinSelectedIndex = r.nextInt(iins.size()-1); }
+    	int selectInt = 0;
     	
-    	char[] front = iins.get(iinSelectedIndex).toCharArray();
-  
-    	// 앞 부분 배치
-    	for(int i=0; i<front.length; i++) {
-    		cardNumber[i] = Character.getNumericValue(front[i]);
+    	// IIN 앞자리로 쓸 수 있는 숫자목록 개수
+    	int iinsCount = iins.size();
+    	if(iinsCount >= 2) { // 2개 이상일 때는 임의의 한 가지를 골라야 함
+        	Random random = new Random();
+        	selectInt = random.nextInt(iinsCount);
+        	selectInt -= selectInt<=0 ? selectInt*-1:selectInt-1; // 인덱싱 용이므로 -1 해줌
     	}
     	
-    	// 나머지 뒷부분 배치
-    	for(int i=front.length; i<cardNumberLength; i++) {
-    		cardNumber[i] = r.nextInt(9);
+    	char[] frontCardNumbers = iins.get(selectInt).toCharArray();
+    	this.iinSize = frontCardNumbers.length; // iinSize 필드에 브랜드명 카드 숫자 길이 세팅
+    	
+    	// cardNumber 필드에 앞자리 세팅
+    	for(int i=0; i<iinSize; i++) {
+    		int index  = i+1;
+    		int number = Character.getNumericValue(frontCardNumbers[i]);
+    		this.cardNumbers[i] = number;
+    		
+    		if(Utils.oddCheck(index)) {
+    			number = Utils.sumForModulus(number*2);
+    			this.modulusSum += number;
+    		} else {
+    			this.modulusSum += number;
+    		}
     	}
-    	this.cardNumber = cardNumber;
+    }
+    
+    /**
+     * Setting card numbers without check digit.
+     * 
+     * @param void
+     * @return void
+     */
+    private void settingNumber() {
+    	int iinSize = this.iinSize;
+    	int cardNumberLength = this.iin.getLength();
+    	cardNumberLength -= 1; // 마지막 한 자리는 체크디지트 이므로 제외
+    	for(int i=iinSize; i<cardNumberLength; i++) {
+    		int index  = i+1;
+    		Random random = new Random();
+    		int number = random.nextInt(9);
+    		this.cardNumbers[i] = number;
+
+    		if(Utils.oddCheck(index)) {
+    			number = Utils.sumForModulus(number*2);
+    			this.modulusSum += number;
+    		} else
+    			{ this.modulusSum += number; }
+    	}
+    }
+
+    /**
+     * Setting check digit.
+     * 
+     * @param void
+     * @return void
+     */
+    private void settingCheckDigit() {
+    	// 모듈러스10에 부합하기 위한 마지막 숫자 결정
+    	// 	= sum보다 큰 10의 배수(ex. 61 => 70)
+    	int threshold			= (this.modulusSum/10)*10+10; // == 1의 자리 삭제 후 + 10
+    	int checkDigit			= threshold-this.modulusSum;
+    	int cardNumberLength	= this.iin.getLength()-1;
+    	this.cardNumbers[cardNumberLength] = checkDigit;
     }
 }

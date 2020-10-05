@@ -50,5 +50,4 @@ public class CardIinValid {
 		assertTrue (iinVisa		.haveIinCode("4645096810229894"));
 		assertTrue (iinUnionpay	.haveIinCode("6240459398569917"));
 	}
-
 }
