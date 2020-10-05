@@ -16,7 +16,6 @@ public class CardObjInitialization {
 		System.out.println(masterCard.getCardNumber());
 		String cardNumber = masterCard.getCardNumber();
 		assertEquals(16, cardNumber.length());
-		//assertEquals(true, Verify.modulus10(cardNumber));
+		assertEquals(true, Verify.modulus10(cardNumber));
 	}
-
 }
