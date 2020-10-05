@@ -12,4 +12,4 @@ before_install:
   - chmod +x ./card/gradlew
 
 script:
-  - ./card/gradlew clean build
+  - cd card && ./gradlew clean build
