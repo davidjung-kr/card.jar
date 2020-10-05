@@ -4,6 +4,7 @@ jdk:
   - openjdk13
 
 before_install:
-  - chmod +x gradlew
+  - chmod +x ./card/gradlew
 
-script: "./card/gradlew clean build"
+script:
+  - ./card/gradlew clean build
