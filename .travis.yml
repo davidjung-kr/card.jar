@@ -3,4 +3,7 @@ jdk:
   - openjdk8
   - openjdk13
 
+before_install:
+  - chmod +x gradlew
+
 script: "./card/gradlew clean build"
