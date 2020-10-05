@@ -2,3 +2,5 @@ language: java
 jdk:
   - openjdk8
   - openjdk13
+
+script: "./card/gradlew clean build"
