@@ -1,18 +1,25 @@
 package card;
-import card.Utils;
 
 /**
  * Features about verify a card.
  *
  * @author David Jung
- * @see    https://github.com/davidjung-kr/card.jar
+ * @see <a href='https://github.com/davidjung-kr/card.jar'>Github(github.com/davidjung-kr/card.jar)</a>
  */
 public class Verify {
 
 	/**
 	 * Modulus10 verification
-	 *
-	 * @param String cardNumber
+
+	 * <pre>
+	 * {@code
+	 * assertEquals(true,	Verify.modulus10("4916854683763796"));
+	 * assertEquals(true,	Verify.modulus10("5111111111111118"));
+	 * assertEquals(false,	Verify.modulus10("1234987645670987"));
+	 * }
+	 * </pre>
+	 * 
+	 * @param	cardNumber	Something card numbers for Modulus 10 verification
 	 * @return boolean
 	 */
 	public static boolean modulus10(String cardNumber) {

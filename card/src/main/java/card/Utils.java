@@ -4,7 +4,7 @@ package card;
  * card.jar 내부에서 사용하는 유틸리티성이 강한 메서드 모음.
  *
  * @author David Jung
- * @see    https://github.com/davidjung-kr/card.jar
+ * @see <a href='https://github.com/davidjung-kr/card.jar'>Github(github.com/davidjung-kr/card.jar)</a>
  */
 public class Utils {
 	

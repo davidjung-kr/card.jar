@@ -7,7 +7,7 @@ import java.util.List;
  * Card brand(IIN) type collection.
  *
  * @author David Jung
- * @see    https://github.com/davidjung-kr/card.jar
+ * @see <a href='https://github.com/davidjung-kr/card.jar'>Github(github.com/davidjung-kr/card.jar)</a>
  */
 public enum CardIin {
 	AMEX		(new String[] {"34",	 "37"},					15),
@@ -67,8 +67,7 @@ public enum CardIin {
 	/**
 	 * Getter - IIN number list
 	 *
-	 * @param void
-	 * @return void
+	 * @return IIN's list
 	 */
 	public List<String> getIins() {
 		return this.iinList;
@@ -77,7 +76,6 @@ public enum CardIin {
 	/**
 	 * Getter - Get card number corresponding IIN
 	 *
-	 * @param void
 	 * @return void
 	 */
 	public int getLength() {
@@ -90,8 +88,8 @@ public enum CardIin {
 	 * 	CardIin.MASTER.haveIinCode	( 52************** ) == true  // MASTER CARD
 	 * 	CardIin.VISA.haveIinCode	( 52************** ) == false // NOT VISA CARD
 	 * 
-	 * @param void
-	 * @return void
+	 * @param	cardNumber	card number
+	 * @return boolean
 	 */
 	public boolean haveIinCode(String cardNumber) {
 		boolean result = false;

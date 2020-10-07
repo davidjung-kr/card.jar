@@ -7,7 +7,7 @@ import java.util.Random;
  * Class for generating any card number, a numeric string that conforms to the modular 10 formula.
  *
  * @author David Jung
- * @see    https://github.com/davidjung-kr/card.jar
+ * @see <a href='https://github.com/davidjung-kr/card.jar'>Github(github.com/davidjung-kr/card.jar)</a>
  */
 public class Card {
 	/** Card number. */
@@ -21,8 +21,11 @@ public class Card {
      * Constructor
      * 	- Setting a IIN brand randomly and generate card numbers when initialize.
      * 
-     * @param void
-     * @return void
+	 * <pre>
+	 * {@code
+	 * Card card = new Card(); // Randomly brand
+	 * }
+	 * </pre>
      */
     public Card(){
     	CardIin[] iins = {
@@ -47,8 +50,13 @@ public class Card {
      * Constructor
      * 	- Generate card numbers when initialize.
      * 
-     * @param CardIin iin
-     * @return void
+     * @param iin IIN of card brand
+     * 
+	 * <pre>
+	 * {@code
+	 * Card masterCard = new Card(CardIin.MASTER); // Master card
+	 * }
+	 * </pre>
      */
     public Card(CardIin iin){
     	final int CARDNUMBER_LENGTH = iin.getLength();
@@ -63,8 +71,12 @@ public class Card {
     /**
      * Get card number when initialize instance.
      * 
-     * @param void
-     * @return String - Card numbers.
+     * @return Card numbers
+     * 
+     * <pre>
+     * Card masterCard = new Card(CardIin.MASTER);
+     * String cardNumber = masterCard.getCardNumber();
+     * </pre>
      */
     public String getCardNumber() {
     	StringBuilder str = new StringBuilder();
@@ -75,9 +87,6 @@ public class Card {
 
     /**
      * Call methods for generate card numbers.
-     * 
-     * @param void
-     * @return void
      */
     private void generateCardNumber() {
     	this.settingBrand		();
@@ -87,9 +96,6 @@ public class Card {
 
     /**
      * Setting card brand(IIN)
-     * 
-     * @param void
-     * @return void
      */
     private void settingBrand() {
     	// IIN 앞자리 목록 가져오기
@@ -125,9 +131,6 @@ public class Card {
     
     /**
      * Setting card numbers without check digit.
-     * 
-     * @param void
-     * @return void
      */
     private void settingNumber() {
     	int iinSize = this.iinSize;
@@ -149,9 +152,6 @@ public class Card {
 
     /**
      * Setting check digit.
-     * 
-     * @param void
-     * @return void
      */
     private void settingCheckDigit() {
     	// 모듈러스10에 부합하기 위한 마지막 숫자 결정
