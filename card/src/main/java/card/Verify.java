@@ -32,15 +32,15 @@ public class Verify {
 			numbers[i] =  Character.getNumericValue(chars[i]);
 		}
 		
-		int sum = 0; // ¸Ç ¸¶Áö¸· CheckDigit´Â °è»êÇÏÁö ¾Ê±â À§ÇØ -1
+		int sum = 0; // ë§¨ ë§ˆì§€ë§‰ CheckDigitëŠ” ê³„ì‚°í•˜ì§€ ì•Šê¸° ìœ„í•´ -1
 		for(int i=0; i<cardNumberLength-1; i++) {
-			// È¦¼ö¹øÂ° ¼ıÀÚ´Â ±×³É ´ëÀÔ, Â¦¼ö¹øÂ° ¼ıÀÚ´Â 2¸¦ °öÇÔ
+			// í™€ìˆ˜ë²ˆì§¸ ìˆ«ìëŠ” ê·¸ëƒ¥ ëŒ€ì…, ì§ìˆ˜ë²ˆì§¸ ìˆ«ìëŠ” 2ë¥¼ ê³±í•¨
 			int index = i+1;
 			int num = Utils.oddCheck(index)?	numbers[i]*2 : numbers[i];
 			num = num>9 ?	num/10+num%10 : num;
 			sum += num;
 		}
-		sum += numbers[cardNumberLength-1]; // ¸Ç ¸¶Áö¸· Check Digit ´õÇÏ±â
+		sum += numbers[cardNumberLength-1]; // ë§¨ ë§ˆì§€ë§‰ Check Digit ë”í•˜ê¸°
 		return sum%10 == 0 ? true:false;
 	}
 }

@@ -98,7 +98,7 @@ public enum CardIin {
 		if(card.Utils.emptyCheck(cardNumber))
 			{ return result; } // === return false;
 		
-		// ¼ø¼­´ë·Î IIN ¸ñ·ÏÀ» °¡Á®¿Í ºñ±³
+		// ìˆœì„œëŒ€ë¡œ IIN ëª©ë¡ì„ ê°€ì ¸ì™€ ë¹„êµ
 		for(int i=0; i<this.iinList.size(); i++) {
 			String iinFront = iinList.get(i);
 

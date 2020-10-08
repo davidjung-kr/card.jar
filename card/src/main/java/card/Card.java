@@ -60,7 +60,7 @@ public class Card {
      */
     public Card(CardIin iin){
     	final int CARDNUMBER_LENGTH = iin.getLength();
-    	// --- ÇÊµå ¼¼ÆÃ ---
+    	// --- í•„ë“œ ì„¸íŒ… ---
     	this.iin			= iin;
     	this.cardNumbers	= new int[CARDNUMBER_LENGTH];	
     	this.iinSize		= 0;
@@ -98,23 +98,23 @@ public class Card {
      * Setting card brand(IIN)
      */
     private void settingBrand() {
-    	// IIN ¾ÕÀÚ¸® ¸ñ·Ï °¡Á®¿À±â
+    	// IIN ì•ìë¦¬ ëª©ë¡ ê°€ì ¸ì˜¤ê¸°
     	List<String> iins = iin.getIins();
     	
     	int selectInt = 0;
     	
-    	// IIN ¾ÕÀÚ¸®·Î ¾µ ¼ö ÀÖ´Â ¼ıÀÚ¸ñ·Ï °³¼ö
+    	// IIN ì•ìë¦¬ë¡œ ì“¸ ìˆ˜ ìˆëŠ” ìˆ«ìëª©ë¡ ê°œìˆ˜
     	int iinsCount = iins.size();
-    	if(iinsCount >= 2) { // 2°³ ÀÌ»óÀÏ ¶§´Â ÀÓÀÇÀÇ ÇÑ °¡Áö¸¦ °ñ¶ó¾ß ÇÔ
+    	if(iinsCount >= 2) { // 2ê°œ ì´ìƒì¼ ë•ŒëŠ” ì„ì˜ì˜ í•œ ê°€ì§€ë¥¼ ê³¨ë¼ì•¼ í•¨
         	Random random = new Random();
         	selectInt = random.nextInt(iinsCount);
-        	selectInt -= selectInt<=0 ? selectInt*-1:selectInt-1; // ÀÎµ¦½Ì ¿ëÀÌ¹Ç·Î -1 ÇØÁÜ
+        	selectInt -= selectInt<=0 ? selectInt*-1:selectInt-1; // ì¸ë±ì‹± ìš©ì´ë¯€ë¡œ -1 í•´ì¤Œ
     	}
     	
     	char[] frontCardNumbers = iins.get(selectInt).toCharArray();
-    	this.iinSize = frontCardNumbers.length; // iinSize ÇÊµå¿¡ ºê·£µå¸í Ä«µå ¼ıÀÚ ±æÀÌ ¼¼ÆÃ
+    	this.iinSize = frontCardNumbers.length; // iinSize í•„ë“œì— ë¸Œëœë“œëª… ì¹´ë“œ ìˆ«ì ê¸¸ì´ ì„¸íŒ…
     	
-    	// cardNumber ÇÊµå¿¡ ¾ÕÀÚ¸® ¼¼ÆÃ
+    	// cardNumber í•„ë“œì— ì•ìë¦¬ ì„¸íŒ…
     	for(int i=0; i<iinSize; i++) {
     		int index  = i+1;
     		int number = Character.getNumericValue(frontCardNumbers[i]);
@@ -135,7 +135,7 @@ public class Card {
     private void settingNumber() {
     	int iinSize = this.iinSize;
     	int cardNumberLength = this.iin.getLength();
-    	cardNumberLength -= 1; // ¸¶Áö¸· ÇÑ ÀÚ¸®´Â Ã¼Å©µğÁöÆ® ÀÌ¹Ç·Î Á¦¿Ü
+    	cardNumberLength -= 1; // ë§ˆì§€ë§‰ í•œ ìë¦¬ëŠ” ì²´í¬ë””ì§€íŠ¸ ì´ë¯€ë¡œ ì œì™¸
     	for(int i=iinSize; i<cardNumberLength; i++) {
     		int index  = i+1;
     		Random random = new Random();
@@ -154,9 +154,9 @@ public class Card {
      * Setting check digit.
      */
     private void settingCheckDigit() {
-    	// ¸ğµâ·¯½º10¿¡ ºÎÇÕÇÏ±â À§ÇÑ ¸¶Áö¸· ¼ıÀÚ °áÁ¤
-    	// 	= sumº¸´Ù Å« 10ÀÇ ¹è¼ö(ex. 61 => 70)
-    	int threshold			= (this.modulusSum/10)*10+10; // == 1ÀÇ ÀÚ¸® »èÁ¦ ÈÄ + 10
+    	// ëª¨ë“ˆëŸ¬ìŠ¤10ì— ë¶€í•©í•˜ê¸° ìœ„í•œ ë§ˆì§€ë§‰ ìˆ«ì ê²°ì •
+    	// 	= sumë³´ë‹¤ í° 10ì˜ ë°°ìˆ˜(ex. 61 => 70)
+    	int threshold			= (this.modulusSum/10)*10+10; // == 1ì˜ ìë¦¬ ì‚­ì œ í›„ + 10
     	int checkDigit			= threshold-this.modulusSum;
     	int cardNumberLength	= this.iin.getLength()-1;
     	this.cardNumbers[cardNumberLength] = checkDigit;

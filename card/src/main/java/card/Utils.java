@@ -1,7 +1,7 @@
 package card;
 
 /**
- * card.jar ³»ºÎ¿¡¼­ »ç¿ëÇÏ´Â À¯Æ¿¸®Æ¼¼ºÀÌ °­ÇÑ ¸Ş¼­µå ¸ğÀ½.
+ * card.jar ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•˜ëŠ” ìœ í‹¸ë¦¬í‹°ì„±ì´ ê°•í•œ ë©”ì„œë“œ ëª¨ìŒ.
  *
  * @author David Jung
  * @see <a href='https://github.com/davidjung-kr/card.jar'>Github(github.com/davidjung-kr/card.jar)</a>
@@ -9,9 +9,9 @@ package card;
 public class Utils {
 	
 	/**
-	 * ÀÔ·Â¹ŞÀº ¼ıÀÚ°¡ 10º¸´Ù Å« °æ¿ì, 10ÀÇ ÀÚ¸®¿Í 1ÀÇ ÀÚ¸®¸¦ ±¸ÇØ ´õÇÑ °ªÀ» µ¹·ÁÁØ´Ù.
+	 * ì…ë ¥ë°›ì€ ìˆ«ìê°€ 10ë³´ë‹¤ í° ê²½ìš°, 10ì˜ ìë¦¬ì™€ 1ì˜ ìë¦¬ë¥¼ êµ¬í•´ ë”í•œ ê°’ì„ ëŒë ¤ì¤€ë‹¤.
 	 *
-	 * @param int number °è»êÇÒ ´ë»ó ¼ıÀÚ
+	 * @param int number ê³„ì‚°í•  ëŒ€ìƒ ìˆ«ì
 	 * @return int (number/10)+(number%10)
 	 */
 	protected static int sumForModulus(int number) {
@@ -22,9 +22,9 @@ public class Utils {
 	}
 	
 	/**
-	 * ÀÔ·Â ¹ŞÀº ¹®ÀÚ¿­ÀÌ NULL È¤Àº ºó ¹®ÀÚ¿­ ÀÎ Áö ¿©ºÎ¸¦ °Ë»çÇÑ´Ù.
+	 * ì…ë ¥ ë°›ì€ ë¬¸ìì—´ì´ NULL í˜¹ì€ ë¹ˆ ë¬¸ìì—´ ì¸ ì§€ ì—¬ë¶€ë¥¼ ê²€ì‚¬í•œë‹¤.
 	 *
-	 * @param String data ´ë»ó ¹®ÀÚ¿­
+	 * @param String data ëŒ€ìƒ ë¬¸ìì—´
 	 * @return boolean
 	 */
 	protected static boolean emptyCheck(String data) {
@@ -35,9 +35,9 @@ public class Utils {
 	}
 	
 	/**
-	 * Â¦¼öÀÎ Áö Ã¼Å©ÇÑ´Ù.
+	 * ì§ìˆ˜ì¸ ì§€ ì²´í¬í•œë‹¤.
 	 *
-	 * @param int number ÆÇ´ÜÇÒ ´ë»ó ¼ıÀÚ
+	 * @param int number íŒë‹¨í•  ëŒ€ìƒ ìˆ«ì
 	 * @return boolean
 	 */
 	protected static boolean evenCheck(int number) {
@@ -47,9 +47,9 @@ public class Utils {
 	}
 
 	/**
-	 * È¦¼öÀÎ Áö Ã¼Å©ÇÑ´Ù.
+	 * í™€ìˆ˜ì¸ ì§€ ì²´í¬í•œë‹¤.
 	 *
-	 * @param int number ÆÇ´ÜÇÒ ´ë»ó ¼ıÀÚ
+	 * @param int number íŒë‹¨í•  ëŒ€ìƒ ìˆ«ì
 	 * @return boolean
 	 */
 	protected static boolean oddCheck(int number) {
